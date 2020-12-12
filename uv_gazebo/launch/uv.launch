@@ -70,6 +70,7 @@ limitations under the License.
     <node name="controller_spawner" pkg="controller_manager" type="spawner"
           args="$(find uv_gazebo)/config/em_3905_joint_ctrlr_params.yaml"/>
 
+
     <!-- Control the steering, axle, and shock absorber joints. -->
     <node name="ackermann_controller" pkg="uv_gazebo"
           type="ackermann_controller.py">
@@ -77,4 +78,7 @@ limitations under the License.
       <rosparam file="$(find uv_gazebo)/config/em_3905_ackermann_ctrlr_params.yaml" command="load"/>
     </node>
   </group>
+
+  <!--   <node pkg="tf" type="static_transform_publisher" name="laser_link" args="0.0 0.0 0.0 0.0 0.0 0.0 /base_link /uv/laser 50" />    -->
+
 </launch>
