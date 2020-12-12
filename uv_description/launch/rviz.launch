@@ -1,0 +1,5 @@
+
+<launch>
+  <arg name="namespace" default="uv"/>
+  <node name="rviz" pkg="rviz" type="rviz" ns="$(arg namespace)"/>
+</launch>
