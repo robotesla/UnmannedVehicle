@@ -395,6 +395,8 @@ limitations under the License.
 
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/uv</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
       <!-- As of 10/7/13, setting controlPeriod to a value greater than
            Gazebo's simulation period prevents the shock absorbers from
            working.
@@ -407,7 +409,7 @@ limitations under the License.
 
   <joint name="rplidar_joint" type="fixed">
     <axis xyz="0 1 0" />
-    <origin xyz="0.02 0 0.58" rpy="0 0 3.14"/>
+    <origin xyz="0 0 0.2" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="laser"/>
   </joint>
@@ -424,9 +426,9 @@ limitations under the License.
 
   <gazebo reference="laser">
     <sensor type="ray" name="head_rplidar_sensor">
-      <pose>0 0 0.06 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
       <visualize>false</visualize>
-      <update_rate>5</update_rate>
+      <update_rate>6</update_rate>
       <ray>
         <scan>
           <horizontal>
@@ -453,5 +455,17 @@ limitations under the License.
       </plugin>
     </sensor>
   </gazebo> 
+
+  <gazebo>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <bodyName>base_link</bodyName>
+      <topicName>imu</topicName>
+      <serviceName>imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>20.0</updateRate>
+    </plugin>
+  </gazebo>
+
 
 </robot>
