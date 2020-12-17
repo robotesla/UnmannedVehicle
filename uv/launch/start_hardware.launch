@@ -1,5 +1,5 @@
 <launch>
   <arg name="namespace" default="uv"/>
   <include file="$(find rp_lidar_ros)/launch/rplidar.launch">
-  <node pkg="rosserial_python" type="serial_node.py" args="_port:=/dev/ttyUSB0"
+  <node pkg="rosserial_python" type="serial_node.py" args="_port:=/dev/ttyUSB0"/>
 </launch>
