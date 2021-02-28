@@ -38,7 +38,7 @@ limitations under the License.
 <launch>
   <arg name="namespace" default="uv"/>
   <arg name="world_name" default="polygun.world"/>
-  <arg name="cmd_timeout" default="0.5"/>
+  <arg name="cmd_timeout" default="15.5"/>
 
   <!-- Vehicle pose -->
   <arg name="x" default="9.0"/>
@@ -47,6 +47,10 @@ limitations under the License.
   <arg name="roll" default="0.0"/>
   <arg name="pitch" default="0.0"/>
   <arg name="yaw" default="1.5707"/>
+
+
+  <remap from="/uv/scan" to="/scan"/>
+   <remap from="/uv/map" to="/map"/>
 
   <include file="$(find uv_description)/launch/uv.launch">
     <arg name="namespace" value="$(arg namespace)"/>
@@ -78,7 +82,14 @@ limitations under the License.
       <rosparam file="$(find uv_gazebo)/config/em_3905_ackermann_ctrlr_params.yaml" command="load"/>
     </node>
 
-    <node name="odom_pub" pkg="uv_gazebo" type="pub_fake_odom.py"></node>
+    <node name="fake_pose_twist" pkg="uv_gazebo" type="pub_fake_odom.py"></node>
+
+
+
+    
+
+    <include file="$(find uv_localization)/launch/amcl.launch"></include>
+  
   </group>
   <!--   <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 map map 100"/>   -->
   <!--   <node pkg="tf" type="static_transform_publisher" name="laser_link" args="0.0 0.0 0.0 0.0 0.0 0.0 /base_link /uv/laser 50" />    -->

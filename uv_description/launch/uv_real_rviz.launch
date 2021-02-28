@@ -1,0 +1,22 @@
+<launch>
+    <arg name="cmd_timeout" default="0.55"/>
+    <arg name="namespace" default="uv"/>
+
+    <include file="$(find uv_description)/launch/uv.launch">
+        <arg name="namespace" value="$(arg namespace)"/>
+    </include>
+    <group ns="$(arg namespace)">
+     <node name="controller_spawner" pkg="controller_manager" type="spawner" ns="/uv"
+          args="--timeout 20 $(find uv_gazebo)/config/em_3905_joint_ctrlr_params.yaml"/>
+
+     <node name="ackermann_controller" pkg="uv_gazebo"
+          type="ackermann_controller.py">
+      <param name="cmd_timeout" value="$(arg cmd_timeout)"/>
+      <rosparam file="$(find uv_gazebo)/config/em_3905_ackermann_ctrlr_params.yaml" command="load"/>
+      </node>
+
+     <node name="rviz" pkg="rviz" type="rviz" ns="$(arg namespace)"/>
+    </group>
+
+
+</launch>
